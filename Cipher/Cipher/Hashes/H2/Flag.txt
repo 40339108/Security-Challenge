@@ -1,0 +1,10 @@
+Hi i'm a friendly message digest.  Heres a bit of knowledge about myself
+	
+	My total length is 9
+	I have an asterix for my 4th character
+	I have the number 0 for my 5th character
+	I have the number 2 for my 7th character
+
+So...can you crack me?
+
+0fc412b4c46cf39bf533931081cd273c
