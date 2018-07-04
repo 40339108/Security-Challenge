@@ -48,7 +48,7 @@ for d in dict:
                             word_l.insert(k, str(l))
                             word_l.insert(k, str(l))
                             word_l = "".join(word_l)
-                            print(word_l)
+                            #print(word_l)
                             m = hashlib.md5()
                             m.update(bytes(word_l, 'UTF-8'))
                             if(m.digest() == hash or word_l == 'appL77e'):
