@@ -1,32 +1,23 @@
 import hashlib
+import sys
 
+hash = b'\xa8\x8e\x89X\tJ\x80\xd0i)\xe1\xce\xd1O\xff\x9c'
 dict_file = open('dictionary.txt', 'r')
-
 dict = []
-
 for d in dict_file:
-    dict.append(d[:-1])
+    dict.append(d.lower()[:-1])
 dict_file.close()
-
 print("Loaded Dictionary...")
 
 g = "αβγδεζηθικλμνξοπρςστυφχψωï"
 a = "abcdefghijklmnopqrstuvwxyz"
 g_letters = []
 alphabet = []
-
 for i in range(0, 26):
     g_letters.append(g[i])
     alphabet.append(a[i])
 
-# hash = 'αppL77e'
-# m = hashlib.md5()
-# m.update(bytes(hash, 'UTF-8'))
-# print(m.digest())
-# exit()
-#hash = b'\x90E\xfbf\xc4n*\xa8\x19\xa2\xb9\xb6!#\x94\xdc'
-hash = b'\xa8\x8e\x89X\tJ\x80\xd0i)\xe1\xce\xd1O\xff\x9c'
-
+print("Cracking...")
 for d in dict:
     temp = list(d)
     for i in range(0, len(temp)):
@@ -46,14 +37,15 @@ for d in dict:
                             word_l = list()
                             word_l += word_k
                             word_l.insert(k, str(l))
-                            word_l.insert(k, str(l))
-                            word_l = "".join(word_l)
-                            #print(word_l)
-                            m = hashlib.md5()
-                            m.update(bytes(word_l, 'UTF-8'))
-                            if(m.digest() == hash or word_l == 'appL77e'):
-                                print(word_l)
-                                print("FOUND")
-                                exit()
-
+                            for n in range(0, 10):
+                                word_n = list()
+                                word_n += word_l
+                                word_n.insert(k, str(n))
+                                word_n = "".join(word_n)
+                                m = hashlib.md5()
+                                m.update(bytes(word_n, 'UTF-8'))
+                                if(m.digest() == hash):
+                                    print(word_l)
+                                    print("FOUND")
+                                    sys.exit(0)
 print("NOT FOUND")
