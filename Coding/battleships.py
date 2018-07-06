@@ -9,7 +9,6 @@ def startGame():
     c_board = []
     c_guesses = []
 
-
     initBoard(p_guesses)
     initBoard(c_guesses)
     #initBoard(p_board)
@@ -27,7 +26,6 @@ def startGame():
         printBoard(p_board)
         getMove(c_board, p_guesses)
 
-
 def menu():
     while(True):
         print("BATTLESHITS!")
@@ -40,7 +38,6 @@ def menu():
             startGame()
         elif (choice == 2):
             exit()
-
 
 def printBoard(board):
     print("     1   2   3   4   5   6   7   8   9   10")
