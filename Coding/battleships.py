@@ -3,6 +3,45 @@ import random
 ships = {'A':5, 'B':4, 'S':3, 'D':3, 'P':2}
 row_l = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
+def startGame():
+    p_board = []
+    p_guesses = []
+    c_board = []
+    c_guesses = []
+
+
+    initBoard(p_guesses)
+    initBoard(c_guesses)
+    #initBoard(p_board)
+    initCompBoard(p_board)
+    initCompBoard(c_board)
+    printBoard(c_board)
+    #getUserPlacement(p_board)
+
+    while(True):
+        print("COMP")
+        printBoard(c_board)
+        print("GUESSES")
+        printBoard(p_guesses)
+        print("YOUR BOARD")
+        printBoard(p_board)
+        getMove(c_board, p_guesses)
+
+
+def menu():
+    while(True):
+        print("BATTLESHITS!")
+        print()
+        print(" 1) New Game")
+        print(" 2) Exit")
+        print()
+        choice = int(input("> "))
+        if (choice == 1):
+            startGame()
+        elif (choice == 2):
+            exit()
+
+
 def printBoard(board):
     print("     1   2   3   4   5   6   7   8   9   10")
     row = 0
@@ -24,7 +63,7 @@ def placeShip(board, ship, pos_x, pos_y, dir):
     placed = False
     size = ships.get(ship)
     if (dir == 0):
-        if ((pos_y + size) <= (len(board) - size + 1)):
+        if ((pos_y + size) <= len(board)):
             valid = True
             for check_y in range(0, size):
                 if (board[pos_y + check_y][pos_x] != ' '):
@@ -34,7 +73,7 @@ def placeShip(board, ship, pos_x, pos_y, dir):
                     board[pos_y + y][pos_x] = ship
                 placed = True
     else:
-        if ((pos_x + size) <= (len(board[0]) - size + 1)):
+        if ((pos_x + size) <= len(board[0])):
             valid = True
             for check_x in range(0, size):
                 if (board[pos_y][pos_x + check_x] != ' '):
@@ -59,8 +98,8 @@ def getUserPlacement(board):
     for ship, size in ships.items():
         placed = False
         while(not placed):
-            printBoard(p_board)
-            print("Enter Position for {} : ".format(ship), end="")
+            printBoard(board)
+            print("Enter Position for {} (size {}): ".format(ship, size), end="")
             pos = input()
             pos_y = row_l.find(pos[0].upper())
             pos_x = int(pos[1:]) - 1
@@ -77,28 +116,16 @@ def getUserPlacement(board):
                 print("Wow are you brain dead or something?")
                 print()
 
-def getMove(c_board, p_board):
+def getMove(c_board, p_guesses):
     pos = input("Enter Nuke Coordinates: ")
     pos_y = row_l.find(pos[0].upper())
     pos_x = int(pos[1:]) - 1
-    if(pos_y >= 0 and pos_y < len(board) and pos_x >= 0 and pos_x < len(board[0])):
+    if(pos_y >= 0 and pos_y < len(c_board) and pos_x >= 0 and pos_x < len(c_board[0])):
         coor = c_board[pos_y][pos_x]
-        if(coor = ' '):
-                p_board[pos_y][pos_x] = 'M'
+        print(pos_x, pos_y)
+        if(coor == ' '):
+                p_guesses[pos_y][pos_x] = 'M'
         else:
-                p_board[pos_y][pos_y] = 'H'
+                p_guesses[pos_y][pos_y] = 'H'
 
-#TODO ADD MOVE HISTORY BOARD
-
-# CREATE BOARDS
-p_board = []
-c_board = []
-initBoard(p_board)
-initCompBoard(c_board)
-
-getUserPlacement(p_board)
-
-while(True):
-    getMove(c_board)
-
-printBoard(c_board)
+menu()
