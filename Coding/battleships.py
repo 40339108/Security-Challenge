@@ -18,8 +18,8 @@ def startGame():
     #getUserPlacement(p_board)
 
     while(True):
-        # print("COMP")
-        # printBoard(c_board)
+        print("COMP")
+        printBoard(c_board)
         print("Computer Score : ", checkPoints(c_guesses))
         print("Player Score : ", checkPoints(p_guesses))
         print("GUESSES")
@@ -27,6 +27,7 @@ def startGame():
         print("YOUR BOARD")
         printBoard(p_board)
         getMove(c_board, p_guesses)
+        getCompMove(p_board, c_guesses)
 
 
 def menu():
@@ -124,19 +125,29 @@ def checkPoints(board):
                 total += 1
     return total
 
-def getCompMove(board):
-    temp = ''
-    while(temp == ''):
-        random.randint(0, len)
+def getCompMove(p_board, c_guesses):
+    move_y = -1
+    move_x = -1
+    while(True):
+        move_y = random.randint(0, len(board))
+        move_x = random.randint(0, len(board[0]))
+        if(board[y][x] == ' '):
+            break
+    return len(p_board) * (move_y + 1) + move_x
+
 def getMove(c_board, p_guesses):
-    pos = input("Enter Nuke Coordinates: ")
-    pos_y = row_l.find(pos[0].upper())
-    pos_x = int(pos[1:]) - 1
-    if(pos_y >= 0 and pos_y < len(c_board) and pos_x >= 0 and pos_x < len(c_board[0])):
-        coor = c_board[pos_y][pos_x]
-        if(coor == ' '):
-                p_guesses[pos_y][pos_x] = 'M'
-        else:
-                p_guesses[pos_y][pos_x] = 'H'
+    invalidMove = True
+    while(invalidMove):
+        pos = input("Enter Nuke Coordinates: ")
+        pos_y = row_l.find(pos[0].upper())
+        pos_x = int(pos[1:]) - 1
+        if(pos_y >= 0 and pos_y < len(c_board) and pos_x >= 0 and pos_x < len(c_board[0])):
+            coor = c_board[pos_y][pos_x]
+            if(coor == ' '):
+                    p_guesses[pos_y][pos_x] = 'M'
+                    invalidMove = False
+            else:
+                    p_guesses[pos_y][pos_x] = 'H'
+                    invalidMove = False
 
 menu()
