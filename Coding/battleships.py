@@ -18,13 +18,16 @@ def startGame():
     #getUserPlacement(p_board)
 
     while(True):
-        print("COMP")
-        printBoard(c_board)
+        # print("COMP")
+        # printBoard(c_board)
+        print("Computer Score : ", checkPoints(c_guesses))
+        print("Player Score : ", checkPoints(p_guesses))
         print("GUESSES")
         printBoard(p_guesses)
         print("YOUR BOARD")
         printBoard(p_board)
         getMove(c_board, p_guesses)
+
 
 def menu():
     while(True):
@@ -113,16 +116,27 @@ def getUserPlacement(board):
                 print("Wow are you brain dead or something?")
                 print()
 
+def checkPoints(board):
+    total = 0
+    for y in board:
+        for x in y:
+            if(x == 'H'):
+                total += 1
+    return total
+
+def getCompMove(board):
+    temp = ''
+    while(temp == ''):
+        random.randint(0, len)
 def getMove(c_board, p_guesses):
     pos = input("Enter Nuke Coordinates: ")
     pos_y = row_l.find(pos[0].upper())
     pos_x = int(pos[1:]) - 1
     if(pos_y >= 0 and pos_y < len(c_board) and pos_x >= 0 and pos_x < len(c_board[0])):
         coor = c_board[pos_y][pos_x]
-        print(pos_x, pos_y)
         if(coor == ' '):
                 p_guesses[pos_y][pos_x] = 'M'
         else:
-                p_guesses[pos_y][pos_y] = 'H'
+                p_guesses[pos_y][pos_x] = 'H'
 
 menu()
