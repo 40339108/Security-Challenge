@@ -68,11 +68,10 @@ def host():
     initCompBoard(h_board)
     initCompBoard(c_board)
 
-    first = random.randint(0, 1)
-    if(first):
-        getMove(p)
-    else:
-        connection.send("H1".encode())
+    # first = random.randint(0, 1)
+    # if(first):
+    #     getMove(p)
+    # else:
     while(True):
         try:
             data = connection.recv(16)
@@ -303,7 +302,7 @@ def getCompMove(p_board, c_guesses):
 def getMove(c_board, p_guesses):
     while(True):
         pos = input("Enter Nuke Coordinates : ")
-        if(len(pos) > 1 and len(pos) < 3):
+        if(len(pos) > 1 and len(pos) < 4):
             pos_y = row_l.find(pos[0].upper())
             pos_x = int(pos[1:]) - 1
             if(pos_y >= 0 and pos_y < len(c_board) and pos_x >= 0 and pos_x < len(c_board[0])):
