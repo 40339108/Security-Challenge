@@ -289,8 +289,8 @@ def tryMove(board, guesses, pos_y, pos_x):
             board[pos_y][pos_x] = 'M'
             return True
         else:
-            c_guesses[pos_y][pos_x] = 'H'
-            p_board[pos_y][pos_x] = 'H'
+            guesses[pos_y][pos_x] = 'H'
+            board[pos_y][pos_x] = 'H'
             return True
 
 def getCompMove(p_board, c_guesses):
