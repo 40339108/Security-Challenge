@@ -14,21 +14,22 @@ def startGame():
     #initBoard(p_board)
     initCompBoard(p_board)
     initCompBoard(c_board)
-    printBoard(c_board)
+    #printBoard(c_board)
     #getUserPlacement(p_board)
 
     while(True):
-        print("COMP")
-        printBoard(c_board)
+        #print("COMP GUESSES");
+        #printBoard(c_guesses);
+        #print("COMP BOARD")
+        #printBoard(c_board)
         print("Computer Score : ", checkPoints(c_guesses))
         print("Player Score : ", checkPoints(p_guesses))
-        print("GUESSES")
+        print("YOUR GUESSES")
         printBoard(p_guesses)
         print("YOUR BOARD")
         printBoard(p_board)
         getMove(c_board, p_guesses)
         getCompMove(p_board, c_guesses)
-
 
 def menu():
     while(True):
@@ -126,28 +127,33 @@ def checkPoints(board):
     return total
 
 def getCompMove(p_board, c_guesses):
-    move_y = -1
-    move_x = -1
     while(True):
-        move_y = random.randint(0, len(board))
-        move_x = random.randint(0, len(board[0]))
-        if(board[y][x] == ' '):
-            break
-    return len(p_board) * (move_y + 1) + move_x
+        pos_y = random.randint(0, len(p_board) - 1)
+        pos_x = random.randint(0, len(p_board[0]) - 1)
+        if(c_guesses[pos_y][pos_x] == ' '):
+            if (p_board[pos_y][pos_x] == ' '):
+                c_guesses[pos_y][pos_x] = 'M'
+                p_board[pos_y][pos_x] = 'M'
+                break
+            else:
+                c_guesses[pos_y][pos_x] = 'H'
+                p_board[pos_y][pos_x] = 'H'
+                break
 
 def getMove(c_board, p_guesses):
-    invalidMove = True
-    while(invalidMove):
+    while(True):
         pos = input("Enter Nuke Coordinates: ")
         pos_y = row_l.find(pos[0].upper())
         pos_x = int(pos[1:]) - 1
         if(pos_y >= 0 and pos_y < len(c_board) and pos_x >= 0 and pos_x < len(c_board[0])):
-            coor = c_board[pos_y][pos_x]
-            if(coor == ' '):
+            if(p_guesses[pos_y][pos_x] == ' '):
+                if(c_board[pos_y][pos_x] == ' '):
                     p_guesses[pos_y][pos_x] = 'M'
-                    invalidMove = False
-            else:
+                    c_board[pos_y][pos_x] = 'M'
+                    break
+                else:
                     p_guesses[pos_y][pos_x] = 'H'
-                    invalidMove = False
+                    c_board[pos_y][pos_x] = 'H'
+                    break
 
 menu()
