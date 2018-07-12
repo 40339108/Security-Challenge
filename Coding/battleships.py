@@ -92,7 +92,7 @@ def join():
     server_address = (ip, port)
     sock.connect(server_address)
     print("Joined server!")
-    while true:
+    while (True):
         data = sock.recv(16)
         response = bytes.decode(data, 'UTF-8')
         check = checkResponse(repsonse)
