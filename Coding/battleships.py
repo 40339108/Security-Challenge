@@ -73,12 +73,8 @@ def host():
     #     getMove(p)
     # else:
     while(True):
-        try:
-            data = connection.recv(16)
-            print(bytes.decode(data, 'UTF-8'))
-            #if(tryMove(bytes.decode(data, 'UTF-8')))
-        finally:
-            connection.close()
+        message = input("Enter a message to send to player: ")
+        sock.send(message.encode())
 
 def checkResponse(response):
     #CODE
