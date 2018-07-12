@@ -80,18 +80,22 @@ def host():
         finally:
             connection.close()
 
+def checkResponse(response):
+    #CODE
+    print(response)
+
 def join():
+    response = ''
     port = 4444
     ip = input("Enter the IP Address of the host: ")
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_address = (ip, port)
     sock.connect(server_address)
     print("Joined server!")
-    try:
+    while true:
         data = sock.recv(16)
-        check = checkRes
-    finally:
-        sock.close()
+        response = bytes.decode(data, 'UTF-8'))
+        check = checkResponse(repsonse)
 
 def local():
     p1_board = []
