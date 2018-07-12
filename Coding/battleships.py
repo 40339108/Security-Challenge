@@ -74,7 +74,7 @@ def host():
     # else:
     while(True):
         message = input("Enter a message to send to player: ")
-        sock.send(message.encode())
+        connection.send(message.encode())
 
 def checkResponse(response):
     #CODE
@@ -91,7 +91,7 @@ def join():
     while (True):
         data = sock.recv(16)
         response = bytes.decode(data, 'UTF-8')
-        check = checkResponse(repsonse)
+        check = checkResponse(response)
 
 def local():
     p1_board = []
