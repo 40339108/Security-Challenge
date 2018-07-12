@@ -49,7 +49,8 @@ def singlePlayer():
 
 def host():
     port = 4444
-    ip = "127.0.0.1"
+    ip = input("Please enter your IP: ")
+    #ip = "127.0.0.1"
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_address = (ip, port)
     sock.bind(server_address)
@@ -82,7 +83,7 @@ def host():
 
 def join():
     port = 4444
-    ip = "127.0.0.1"
+    ip = input("Please enter the Host IP: ")
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_address = (ip, port)
     sock.connect(server_address)
