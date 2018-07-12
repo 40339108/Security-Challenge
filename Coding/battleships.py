@@ -94,7 +94,7 @@ def join():
     print("Joined server!")
     while true:
         data = sock.recv(16)
-        response = bytes.decode(data, 'UTF-8'))
+        response = bytes.decode(data, 'UTF-8')
         check = checkResponse(repsonse)
 
 def local():
