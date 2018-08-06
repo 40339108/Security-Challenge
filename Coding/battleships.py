@@ -47,17 +47,45 @@ def singlePlayer():
 # V = VALID ; 0 = invalid ; 1 = valid
 # E = END ;
 
+def sendRespnse(socket, string):
+    check = socket.send(string.encode())
+    if(not check):
+        socket.close()
+        exit(0)
+
+def readResponse(socket):
+    data = socket.recv(16)
+    response = bytes.decode(data, 'UTF-8')
+    if(len(response) < 1):
+        socket.close()
+        exit(0)
+    return response
+
+def checkResponse(response, h_board, h_guesses, c_board, c_guesses):
+    if (response[1] == 'H'):
+        if (response[3] == '0'):
+            response = "&M=" + getMove() + ";"
+            sendRespnse(response);
+    elif (response[1] == 'E'):
+        print("GAME OVER!")
+        exit(0)
+
 def host():
     port = 4444
-    ip = input("Enter your IP Address: ")
+    ip = input("Enter Host IP Address: ")
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_address = (ip, port)
-    sock.bind(server_address)
+    try:
+        sock.bind(server_address)
+    except:
+        print("ERROR BINDING SOCKET")
+
     sock.listen(1)
     print("Server IP :", ip + ":" + str(port))
     print("Waiting for player...")
     connection, client_address = sock.accept()
     print("Player joined!")
+    # h - host : c - client
     h_board = []
     h_guesses = []
     c_board = []
@@ -68,30 +96,34 @@ def host():
     initCompBoard(h_board)
     initCompBoard(c_board)
 
-    # first = random.randint(0, 1)
-    # if(first):
-    #     getMove(p)
-    # else:
-    while(True):
-        message = input("Enter a message to send to player: ")
-        connection.send(message.encode())
+    first = random.randint(0, 1)
+    if(first):
+        sendRespnse(connection, "&H=0;")
+    else:
+        sendRespnse(connection, "&H=1;")
 
-def checkResponse(response):
-    #CODE
-    print(response)
+    while(True):
+        checkResponse(readResponse(connection, h_board, h_guesses, c_board, c_guesses))
 
 def join():
     response = ''
     port = 4444
-    ip = input("Enter the IP Address of the host: ")
+    ip = input("Enter Server IP Address: ")
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_address = (ip, port)
     sock.connect(server_address)
     print("Joined server!")
+
+    h_guesses = []
+    c_guesses = []
+    c_board = []
+
+    initBoard(h_guesses)
+    initBoard(c_guesses)
+    initBoard(c_board)
+
     while (True):
-        data = sock.recv(16)
-        response = bytes.decode(data, 'UTF-8')
-        check = checkResponse(response)
+        checkResponse(readResponse(sock, h_board, h_guesses, c_board, c_guesses))
 
 def local():
     p1_board = []
